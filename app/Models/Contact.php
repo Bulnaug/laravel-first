@@ -8,7 +8,7 @@ use App\Models\Deal;
 
 class Contact extends Model
 {
-    protected $fillable = ['name', 'email', 'phone'];
+    protected $fillable = ['name', 'email', 'phone', 'user_id'];
     public function user()
     {
         return $this->belongsTo(User::class);

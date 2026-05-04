@@ -63,4 +63,27 @@
 </div>
 @endforeach
 
+<h3 class="mt-6 font-bold">Добавить сделку</h3>
+
+<form method="POST" action="/contacts/{{ $contact->id }}/deals" class="space-y-2 mt-2">
+    @csrf
+
+    <input 
+        name="title" 
+        placeholder="Название сделки"
+        class="border p-2 w-full rounded"
+        required
+    >
+
+    <input 
+        name="amount" 
+        placeholder="Сумма"
+        class="border p-2 w-full rounded"
+    >
+
+    <button class="bg-blue-500 text-white px-4 py-2 rounded">
+        Добавить
+    </button>
+</form>
+
 @endsection
