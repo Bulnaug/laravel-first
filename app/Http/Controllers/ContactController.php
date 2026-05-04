@@ -8,9 +8,16 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $contacts = Contact::all();
+        $query = $request->input('search');
+
+        $contacts = Contact::when($query, function ($q) use ($query) {
+            $q->where('name', 'like', "%$query%")
+            ->orWhere('email', 'like', "%$query%")
+            ->orWhere('phone', 'like', "%$query%");
+        })->get();
+
         return view('contacts.index', compact('contacts'));
     }
 

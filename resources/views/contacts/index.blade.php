@@ -8,6 +8,17 @@
     + Добавить клиента
 </a>
 
+<form method="GET" action="/contacts" class="mb-4">
+    <input type="text" name="search"
+           placeholder="Поиск..."
+           value="{{ request('search') }}"
+           class="border p-2 rounded w-1/3">
+
+    <button class="bg-gray-800 text-white px-4 py-2 rounded">
+        Найти
+    </button>
+</form>
+
 <table class="w-full border">
     <thead>
         <tr class="bg-gray-200">
@@ -17,6 +28,9 @@
         </tr>
     </thead>
     <tbody>
+        @if($contacts->isEmpty())
+                    <p class="text-red-500 my-2">Ничего не найдено</p>
+                @endif
         @foreach($contacts as $contact)
         <tr class="border-t">
             <td class="p-2">{{ $contact->name }}</td>
@@ -36,7 +50,6 @@
                         🗑
                     </button>
                 </form>
-
             </td>
         </tr>
         @endforeach
