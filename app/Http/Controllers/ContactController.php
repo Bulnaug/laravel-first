@@ -68,9 +68,10 @@ class ContactController extends Controller
     }
     public function show($id)
     {
-        $contact = Contact::where('id', $id)
+/*         $contact = Contact::where('id', $id)
             ->where('user_id', auth()->id())
-            ->firstOrFail();
+            ->firstOrFail(); */
+        $contact = Contact::findOrFail($id);
         return view('contacts.show', compact('contact'));
     }
 }

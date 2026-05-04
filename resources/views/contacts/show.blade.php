@@ -21,4 +21,19 @@
     </a>
 </div>
 
+<h2 class="mt-6 font-bold">Сделки</h2>
+
+<ul>
+@foreach($contact->deals as $deal)
+    <li>{{ $deal->title }} — ${{ $deal->amount }}</li>
+@endforeach
+</ul>
+
+<form method="POST" action="/contacts/{{ $contact->id }}/deals">
+    @csrf
+    <input name="title" placeholder="Название сделки">
+    <input name="amount" placeholder="Сумма">
+    <button>Добавить</button>
+</form>
+
 @endsection
