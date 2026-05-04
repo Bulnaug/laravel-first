@@ -33,7 +33,11 @@
                 @endif
         @foreach($contacts as $contact)
         <tr class="border-t">
-            <td class="p-2">{{ $contact->name }}</td>
+            <td class="p-2">
+                <a href="/contacts/{{ $contact->id }}" class="text-blue-600 underline">
+                    {{ $contact->name }}
+                </a>
+            </td>
             <td class="p-2">{{ $contact->email }}</td>
             <td class="p-2 space-x-2">
 

@@ -52,4 +52,9 @@ class ContactController extends Controller
 
         return redirect('/contacts');
     }
+    public function show($id)
+    {
+        $contact = Contact::findOrFail($id);
+        return view('contacts.show', compact('contact'));
+    }
 }
