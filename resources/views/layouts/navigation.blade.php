@@ -15,6 +15,17 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link href="/contacts" :active="request()->is('contacts*')">
+                        Контакты
+                    </x-nav-link>
+
+                    <a href="/contacts/create"
+                    class="inline-flex items-center px-3 py-2 bg-blue-500 text-white rounded-md text-sm font-medium hover:bg-blue-400 transition">
+                        + Клиент
+                    </a>
+                    <x-nav-link href="/deals/board" :active="request()->is('deals/board')">
+                        Сделки
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -69,6 +80,13 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="/contacts" :active="request()->is('contacts*')">
+                Контакты
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link href="/contacts/create">
+                + Клиент
             </x-responsive-nav-link>
         </div>
 

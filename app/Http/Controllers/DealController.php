@@ -30,4 +30,13 @@ class DealController extends Controller
 
         return back();
     }
+
+    public function board()
+    {
+        $deals = Deal::with('contact')->get();
+
+        $grouped = $deals->groupBy('status');
+
+        return view('deals.board', compact('grouped'));
+    }
 }
