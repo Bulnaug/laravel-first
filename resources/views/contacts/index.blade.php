@@ -4,6 +4,9 @@
 
 <ul>
 @foreach($contacts as $contact)
-    <li>{{ $contact->name }} ({{ $contact->email }})</li>
+    <li>
+        {{ $contact->name }} ({{ $contact->email }})
+        <a href="/contacts/{{ $contact->id }}/edit">Редактировать</a>
+    </li>
 @endforeach
 </ul>
