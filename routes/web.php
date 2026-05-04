@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/contacts/{id}', [ContactController::class, 'update']);
     Route::delete('/contacts/{id}', [ContactController::class, 'destroy']);
     Route::post('/contacts/{contact}/deals', [DealController::class, 'store']);
+    Route::post('/deals/{deal}/status', [DealController::class, 'updateStatus']);
 });
 
 require __DIR__.'/auth.php';

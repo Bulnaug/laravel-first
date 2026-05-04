@@ -6,7 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Deal extends Model
 {
-    protected $fillable = ['title', 'amount'];
+    public const STATUSES = [
+        'new',
+        'in_progress',
+        'won',
+        'lost',
+    ];
+
+    protected $fillable = [
+        'title',
+        'amount',
+        'status',
+        'contact_id',
+    ];
 
     public function contact()
     {

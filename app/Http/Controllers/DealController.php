@@ -17,4 +17,17 @@ class DealController extends Controller
 
         return back();
     }
+
+    public function updateStatus(Request $request, Deal $deal)
+    {
+        $request->validate([
+            'status' => 'required|in:new,in_progress,won,lost'
+        ]);
+
+        $deal->update([
+            'status' => $request->status
+        ]);
+
+        return back();
+    }
 }

@@ -23,17 +23,44 @@
 
 <h2 class="mt-6 font-bold">Сделки</h2>
 
-<ul>
 @foreach($contact->deals as $deal)
-    <li>{{ $deal->title }} — ${{ $deal->amount }}</li>
-@endforeach
-</ul>
+<div class="border p-3 mb-2 rounded">
 
-<form method="POST" action="/contacts/{{ $contact->id }}/deals">
-    @csrf
-    <input name="title" placeholder="Название сделки">
-    <input name="amount" placeholder="Сумма">
-    <button>Добавить</button>
-</form>
+    <div class="flex justify-between items-center">
+        <div>
+            <strong>{{ $deal->title }}</strong>
+            <div class="text-sm text-gray-500">
+                ${{ $deal->amount }}
+            </div>
+            <div class="
+                text-sm font-bold
+                @if($deal->status === 'new') text-gray-500 @endif
+                @if($deal->status === 'in_progress') text-blue-500 @endif
+                @if($deal->status === 'won') text-green-500 @endif
+                @if($deal->status === 'lost') text-red-500 @endif
+            ">
+                {{ $deal->status }}
+            </div>
+        </div>
+
+        <form method="POST" action="/deals/{{ $deal->id }}/status">
+            @csrf
+
+            <select name="status" onchange="this.form.submit()"
+                    class="border p-1 rounded">
+
+                @foreach(\App\Models\Deal::STATUSES as $status)
+                    <option value="{{ $status }}"
+                        {{ $deal->status === $status ? 'selected' : '' }}>
+                        {{ $status }}
+                    </option>
+                @endforeach
+
+            </select>
+        </form>
+    </div>
+
+</div>
+@endforeach
 
 @endsection
