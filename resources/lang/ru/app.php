@@ -13,4 +13,13 @@ return [
     'notes' => 'Заметки',
     'delete_confirm' => 'Удалить?',
     'notes_placeholder' => 'Заметки...',
+
+    'profile' => 'Профиль',
+    'user' => 'Пользователь',
+    'language' => 'Язык',
+    'current' => 'Текущий',
+
+    'lang_ru' => 'Русский',
+    'lang_en' => 'Английский',
+    'lang_de' => 'Немецкий',
 ];

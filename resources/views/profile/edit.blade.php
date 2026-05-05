@@ -5,14 +5,13 @@
 <div class="max-w-2xl mx-auto p-6">
 
     <h1 class="text-2xl font-bold mb-6 text-white">
-        Профиль
+        {{ __('app.profile') }}
     </h1>
 
     <div class="bg-white rounded-xl shadow p-6 space-y-6">
 
-        <!-- 👤 Информация -->
         <div>
-            <h2 class="text-sm text-gray-500 mb-2">Пользователь</h2>
+            <h2 class="text-sm text-gray-500 mb-2">{{ __('app.user') }}</h2>
 
             <div class="text-lg font-medium">
                 {{ auth()->user()->name }}
@@ -23,26 +22,30 @@
             </div>
         </div>
 
-        <!-- 🌍 Язык -->
         <div>
-            <h2 class="text-sm text-gray-500 mb-2">Язык</h2>
+            <h2 class="text-sm text-gray-500 mb-2">{{ __('app.language') }}</h2>
 
             <div class="flex gap-2">
 
                 <a href="{{ route('lang.switch', 'ru') }}"
                    class="btn btn-secondary {{ app()->getLocale() === 'ru' ? 'ring-2 ring-blue-500' : '' }}">
-                    🇷🇺 Русский
+                    🇷🇺 {{ __('app.lang_ru') }}
                 </a>
 
                 <a href="{{ route('lang.switch', 'en') }}"
                    class="btn btn-secondary {{ app()->getLocale() === 'en' ? 'ring-2 ring-blue-500' : '' }}">
-                    🇬🇧 English
+                    🇬🇧 {{ __('app.lang_en') }}
+                </a>
+
+                <a href="{{ route('lang.switch', 'de') }}"
+                   class="btn btn-secondary {{ app()->getLocale() === 'de' ? 'ring-2 ring-blue-500' : '' }}">
+                    🇩🇪 {{ __('app.lang_de') }}
                 </a>
 
             </div>
 
             <div class="text-xs text-gray-400 mt-2">
-                Текущий: {{ app()->getLocale() }}
+                {{ __('app.current') }}: {{ strtoupper(app()->getLocale()) }}
             </div>
         </div>
 

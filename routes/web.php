@@ -9,7 +9,7 @@ use App\Http\Controllers\AnalyticsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/lang/{lang}', function ($lang) {
-    if (!in_array($lang, ['en', 'ru'])) {
+    if (!in_array($lang, ['en', 'ru', 'de'])) {
         abort(400);
     }
 
