@@ -10,9 +10,12 @@ class ActivityController extends Controller
 {
     public function index()
     {
-        $activities = Activity::where('user_id', auth()->id())
+        $activities = \App\Models\Activity::where('user_id', auth()->id())
             ->latest()
-            ->paginate(20);
+            ->get()
+            ->groupBy(function ($activity) {
+                return $activity->created_at->format('Y-m-d');
+            });
 
         return view('history.index', compact('activities'));
     }
