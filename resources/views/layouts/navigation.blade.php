@@ -24,6 +24,9 @@
                     <x-nav-link href="/analytics" :active="request()->is('analytics')">
                         Аналитика
                     </x-nav-link>
+                    <x-nav-link href="/history" :active="request()->is('history')">
+                        История
+                    </x-nav-link>
                 </div>
             </div>
 

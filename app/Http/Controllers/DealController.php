@@ -4,16 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Deal;
 use App\Models\Contact;
+use App\Models\Activity;
 use Illuminate\Http\Request;
 
 class DealController extends Controller
 {
     public function store(Request $request, Contact $contact)
     {
-        $contact->deals()->create([
+        $deal = $contact->deals()->create([
             'title' => $request->title,
             'amount' => $request->amount,
             'notes' => $request->notes,
+        ]);
+
+        Activity::create([
+            'user_id' => auth()->id(),
+            'type' => 'created',
+            'description' => "Создана сделка: {$deal->title}",
         ]);
 
         return back();
@@ -25,8 +32,24 @@ class DealController extends Controller
             'status' => 'required|in:new,in_progress,won,lost'
         ]);
 
+        $oldStatus = $deal->status;
+
+        $oldStatus = $deal->status;
+
         $deal->update([
             'status' => $request->status
+        ]);
+
+        Activity::create([
+            'user_id' => auth()->id(),
+            'type' => 'status_changed',
+            'description' => "Сделка '{$deal->title}': {$oldStatus} → {$request->status}",
+        ]);
+
+        Activity::create([
+            'user_id' => auth()->id(),
+            'type' => 'status_changed',
+            'description' => "Сделка '{$deal->title}': {$oldStatus} → {$request->status}",
         ]);
 
         return response()->json(['success' => true]);
@@ -94,6 +117,12 @@ class DealController extends Controller
 
         $deal->update([
             'notes' => $request->notes
+        ]);
+
+        Activity::create([
+            'user_id' => auth()->id(),
+            'type' => 'note_updated',
+            'description' => "Обновлена заметка у сделки: {$deal->title}",
         ]);
 
         return back();
