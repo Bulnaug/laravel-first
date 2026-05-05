@@ -10,16 +10,32 @@ class ContactController extends Controller
 {
     public function index(Request $request)
     {
-        $query = $request->input('search');
+        $search = $request->input('search');
+        $hasDeals = $request->input('has_deals');
 
-        $contacts = Contact::when($query, function ($q) use ($query) {
-                $q->where(function ($sub) use ($query) {
-                    $sub->where('name', 'like', "%$query%")
-                        ->orWhere('email', 'like', "%$query%")
-                        ->orWhere('phone', 'like', "%$query%");
+        $contacts = Contact::where('user_id', auth()->id())
+
+            // 🔍 поиск
+            ->when($search, function ($q) use ($search) {
+                $q->where(function ($sub) use ($search) {
+                    $sub->where('name', 'like', "%$search%")
+                        ->orWhere('email', 'like', "%$search%")
+                        ->orWhere('phone', 'like', "%$search%");
                 });
             })
-            ->get();
+
+            // 🔥 фильтр по сделкам
+            ->when($hasDeals === 'yes', function ($q) {
+                $q->has('deals');
+            })
+
+            ->when($hasDeals === 'no', function ($q) {
+                $q->doesntHave('deals');
+            })
+
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return view('contacts.index', compact('contacts'));
     }

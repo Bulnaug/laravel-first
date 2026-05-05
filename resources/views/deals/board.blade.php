@@ -5,6 +5,7 @@
 <div class="max-w-7xl mx-auto p-6">
 
     <h1 class="text-2xl font-bold mb-6 text-white">Канбан сделок</h1>
+    
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
 

@@ -28,7 +28,7 @@ class DealController extends Controller
             'status' => $request->status
         ]);
 
-        return back();
+        return response()->json(['success' => true]);
     }
 
     public function board()
@@ -38,5 +38,19 @@ class DealController extends Controller
         $grouped = $deals->groupBy('status');
 
         return view('deals.board', compact('grouped'));
+    }
+
+    public function move(Request $request, Deal $deal)
+    {
+
+        $request->validate([
+            'status' => 'required|in:new,in_progress,won,lost',
+        ]);
+
+        $deal->update([
+            'status' => $request->status
+        ]);
+
+        return response()->json(['success' => true]);
     }
 }
