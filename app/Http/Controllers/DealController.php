@@ -33,11 +33,31 @@ class DealController extends Controller
 
     public function board()
     {
-        $deals = Deal::with('contact')->get();
+        $search = request('search');
+        $contactId = request('contact_id');
+
+        $query = Deal::with('contact');
+
+        // 🔍 поиск
+        if ($search) {
+            $query->where('title', 'like', "%{$search}%");
+        }
+
+        // 👤 фильтр по клиенту
+        if ($contactId) {
+            $query->where('contact_id', $contactId);
+        }
+
+        $deals = $query->get();
 
         $grouped = $deals->groupBy('status');
 
-        return view('deals.board', compact('grouped'));
+        $totalDeals = $deals->count();
+
+        // для select
+        $contacts = Contact::all();
+
+        return view('deals.board', compact('grouped', 'contacts'));
     }
 
     public function move(Request $request, Deal $deal)

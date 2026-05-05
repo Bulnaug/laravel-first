@@ -6,6 +6,45 @@
 
     <h1 class="text-2xl font-bold mb-6 text-white">Канбан сделок</h1>
     
+    <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-4 mb-6">
+        <form method="GET" action="{{ route('deals.board') }}" class="flex gap-2 items-center">
+
+            <!-- поиск -->
+            <input type="text"
+                name="search"
+                value="{{ request('search') }}"
+                placeholder="Поиск сделки..."
+                class="flex-1 border border-gray-300 rounded-lg p-2">
+
+            <!-- фильтр по клиенту -->
+            <select name="contact_id"
+                    class="border border-gray-300 rounded-lg p-2"
+                    onchange="this.form.submit()">
+
+                <option value="">Все клиенты</option>
+
+                @foreach($contacts as $contact)
+                    <option value="{{ $contact->id }}"
+                        {{ request('contact_id') == $contact->id ? 'selected' : '' }}>
+                        {{ $contact->name }}
+                    </option>
+                @endforeach
+
+            </select>
+
+            <button class="bg-gray-800 text-white px-4 py-2 rounded-lg">
+                Найти
+            </button>
+
+            @if(request('search') || request('contact_id'))
+                <a href="{{ route('deals.board') }}"
+                class="bg-red-800 text-white px-4 py-2 rounded-lg">
+                    Сброс
+                </a>
+            @endif
+
+        </form>
+    </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
 
