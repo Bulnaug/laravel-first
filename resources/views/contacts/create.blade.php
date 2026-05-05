@@ -4,7 +4,7 @@
 
 <div class="max-w-xl mx-auto p-6">
 
-    <h1 class="text-2xl text-white font-bold mb-6">Добавить клиента</h1>
+    <h1 class="text-2xl text-white font-bold mb-6">{{ __('contacts.add') }}</h1>
 
     <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
 
@@ -13,19 +13,19 @@
 
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Имя
+                    {{ __('contacts.name') }}
                 </label>
                 <input 
                     type="text" 
                     name="name" 
-                    placeholder="Введите имя"
+                    placeholder="{{ __('app.enter_name') }}"
                     class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 >
             </div>
 
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Email
+                    {{ __('contacts.email') }}
                 </label>
                 <input 
                     type="email" 
@@ -37,7 +37,7 @@
 
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Телефон
+                    {{ __('contacts.phone') }}
                 </label>
                 <input 
                     type="text" 
@@ -51,11 +51,11 @@
 
                 <a href="{{ route('contacts.index') }}"
                    class="text-sm text-gray-500 hover:underline">
-                    ← Назад
+                    ← {{ __('app.back') }}
                 </a>
 
                 <button class="btn btn-blue">
-                    Сохранить
+                    {{ __('app.save') }}
                 </button>
 
             </div>

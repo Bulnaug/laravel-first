@@ -4,45 +4,45 @@
 
 <div class="max-w-7xl mx-auto p-6">
 
-    <h1 class="text-2xl font-bold mb-6 text-white">Аналитика</h1>
+    <h1 class="text-2xl font-bold mb-6 text-white">{{ __('analytics.title') }}</h1>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
 
         <div class="bg-white p-4 rounded-xl">
-            <div class="text-gray-500 text-sm">Всего сделок</div>
+            <div class="text-gray-500 text-sm">{{ __('analytics.stats.total') }}</div>
             <div class="text-2xl font-bold">{{ $totalDeals }}</div>
         </div>
 
         <div class="bg-white p-4 rounded-xl">
-            <div class="text-gray-500 text-sm">Общая сумма</div>
-            <div class="text-2xl font-bold">${{ $totalAmount }}</div>
+            <div class="text-gray-500 text-sm">{{ __('analytics.stats.amount') }}</div>
+            <div class="text-2xl font-bold">${{ number_format($totalAmount, 0, ',', ' ') }} $</div>
         </div>
 
         <div class="bg-white p-4 rounded-xl">
-            <div class="text-gray-500 text-sm">Выиграно</div>
+            <div class="text-gray-500 text-sm">{{ __('deals.stats.won') }}</div>
             <div class="text-2xl font-bold text-green-600">${{ $wonAmount }}</div>
         </div>
 
         <div class="bg-white p-4 rounded-xl">
-            <div class="text-gray-500 text-sm">В процессе</div>
+            <div class="text-gray-500 text-sm">{{ __('deals.stats.pipeline') }}</div>
             <div class="text-2xl font-bold text-blue-600">${{ $pipelineAmount }}</div>
         </div>
 
     </div>
 
     <div class="bg-white p-4 rounded-xl mb-6">
-        <h2 class="font-bold mb-4">Сделки по статусам</h2>
+        <h2 class="font-bold mb-4">{{ __('analytics.by_status') }}</h2>
 
         @foreach($dealsByStatus as $row)
             <div class="flex justify-between border-b py-2">
-                <div>{{ $row->status }}</div>
-                <div>{{ $row->count }} шт. — ${{ $row->total }}</div>
+                <div>{{ __('deals.statuses.' . $row->status) }}</div>
+                <div>{{ $row->count }} {{ __('analytics.units') }} — ${{ $row->total }}</div>
             </div>
         @endforeach
     </div>
 
     <div class="bg-white p-4 rounded-xl mb-6">
-        <h2 class="font-bold mb-4">Топ клиенты</h2>
+        <h2 class="font-bold mb-4">{{ __('analytics.top_contacts') }}</h2>
 
         @foreach($topContacts as $contact)
             <div class="flex justify-between border-b py-2">
@@ -53,12 +53,12 @@
     </div>
 
     <div class="bg-white p-4 rounded-xl mb-6">
-        <h2 class="font-bold mb-4">Сделки по статусам (график)</h2>
+        <h2 class="font-bold mb-4">{{ __('analytics.charts.status') }}</h2>
 
         <canvas id="statusChart"></canvas>
     </div>
     <div class="bg-white p-4 rounded-xl mb-6">
-        <h2 class="font-bold mb-4">Распределение денег по статусам</h2>
+        <h2 class="font-bold mb-4">{{ __('analytics.charts.money') }}</h2>
 
         <canvas id="moneyPieChart"></canvas>
     </div>
@@ -73,9 +73,11 @@ document.addEventListener('DOMContentLoaded', function () {
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: @json($dealsByStatus->pluck('status')),
+            labels: @json(
+                $dealsByStatus->pluck('status')->map(fn($s) => __('deals.statuses.' . $s))
+            ),
             datasets: [{
-                label: 'Колличество сделок',
+                label: '{{ __("analytics.charts.count") }}',
                 data: @json($dealsByStatus->pluck('count')),
                 backgroundColor: [
                     '#9ca3af', // new
@@ -105,7 +107,9 @@ document.addEventListener('DOMContentLoaded', function () {
     new Chart(ctxPie, {
         type: 'pie',
         data: {
-            labels: @json($dealsByStatus->pluck('status')),
+            labels: @json(
+                $dealsByStatus->pluck('status')->map(fn($s) => __('deals.statuses.' . $s))
+            ),
             datasets: [{
                 data: @json($dealsByStatus->pluck('total')),
                 backgroundColor: [

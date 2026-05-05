@@ -16,16 +16,16 @@
                         Dashboard
                     </x-nav-link>
                     <x-nav-link href="/contacts" :active="request()->is('contacts*')">
-                        Клиенты
+                        {{ __('contacts.title') }}
                     </x-nav-link>
                     <x-nav-link href="/deals/board" :active="request()->is('deals/board')">
-                        Сделки
+                        {{ __('deals.title') }}
                     </x-nav-link>
                     <x-nav-link href="/analytics" :active="request()->is('analytics')">
-                        Аналитика
+                        {{ __('analytics.title') }}
                     </x-nav-link>
                     <x-nav-link href="/history" :active="request()->is('history')">
-                        История
+                        {{ __('activity.title_navigation') }}
                     </x-nav-link>
                 </div>
             </div>

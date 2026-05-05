@@ -8,6 +8,16 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AnalyticsController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/lang/{lang}', function ($lang) {
+    if (!in_array($lang, ['en', 'ru'])) {
+        abort(400);
+    }
+
+    session(['locale' => $lang]);
+
+    return back();
+})->name('lang.switch');
+
 Route::get('/', function () {
     return view('welcome');
 });

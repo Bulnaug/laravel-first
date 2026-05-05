@@ -19,25 +19,25 @@
         <h1 class="text-2xl font-bold mb-2">{{ $contact->name }}</h1>
 
         <div class="text-gray-500 space-y-1 text-sm">
-            <p><span class="font-medium text-gray-700">Email:</span> {{ $contact->email ?? '—' }}</p>
-            <p><span class="font-medium text-gray-700">Телефон:</span> {{ $contact->phone ?? '—' }}</p>
+            <p><span class="font-medium text-gray-700">{{ __('contacts.email') }}:</span> {{ $contact->email ?? '—' }}</p>
+            <p><span class="font-medium text-gray-700">{{ __('contacts.phone') }}:</span> {{ $contact->phone ?? '—' }}</p>
         </div>
 
         <div class="mt-4 flex gap-2">
             <a href="{{ route('contacts.edit', $contact->id) }}"
                class="bg-yellow-400 px-4 py-2 rounded-lg hover:bg-yellow-500 transition text-sm font-medium">
-               ✏️ Редактировать
+               ✏️ {{ __('app.edit') }}
             </a>
 
             <a href="{{ route('contacts.index') }}"
                class="btn btn-red">
-               ← Назад
+               ← {{ __('app.back') }}
             </a>
         </div>
     </div>
 
     <div class="mb-6">
-        <h2 class="text-lg font-semibold mb-3 text-white">Сделки</h2>
+        <h2 class="text-lg font-semibold mb-3 text-white">{{ __('deals.title') }}</h2>
 
         @foreach($contact->deals as $deal)
             <div class="bg-white border rounded-xl p-4 mb-3 transition hover:shadow
@@ -56,7 +56,7 @@
 
                         <span class="inline-block mt-1 px-2 py-1 text-xs rounded
                             {{ $colors[$deal->status] ?? 'bg-gray-100' }}">
-                            {{ $deal->status }}
+                            {{ __('deals.statuses.' . $deal->status) }}
                         </span>
                     </div>
 
@@ -70,7 +70,7 @@
                             @foreach(\App\Models\Deal::STATUSES as $status)
                                 <option value="{{ $status }}"
                                     {{ $deal->status === $status ? 'selected' : '' }}>
-                                    {{ $status }}
+                                    {{ __('deals.statuses.' . $status) }}
                                 </option>
                             @endforeach
 
@@ -85,7 +85,7 @@
                     </div>
                 @else
                     <div class="mt-3 text-xs text-gray-400">
-                        Нет заметок
+                        {{ __('deals.empty_notes') }}
                     </div>
                 @endif
 
@@ -93,7 +93,7 @@
                     @csrf
 
                     <textarea name="notes"
-                            placeholder="Заметки..."
+                            placeholder="{{ __('app.notes_placeholder') }}"
                             class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
                             rows="2">{{ $deal->notes }}</textarea>
 
@@ -101,14 +101,14 @@
 
                         <button type="submit"
                                 class="btn btn-blue mr-2">
-                            Сохранить
+                            {{ __('app.save') }}
                         </button>
 
                         <button type="submit"
                                 name="notes"
                                 value=""
                                 class="btn btn-red">
-                            Очистить
+                            {{ __('app.clear') }}
                         </button>
 
                     </div>
@@ -118,7 +118,7 @@
     </div>
 
     <div class="bg-white rounded-xl shadow p-6">
-        <h3 class="text-lg font-semibold mb-4 text-gray-700">Добавить сделку</h3>
+        <h3 class="text-lg font-semibold mb-4 text-gray-700">{{ __('deals.pages.create') }}</h3>
 
         <form method="POST"
             action="{{ route('deals.store', $contact->id) }}"
@@ -127,25 +127,25 @@
 
             <input 
                 name="title" 
-                placeholder="Название сделки"
+                placeholder="{{ __('deals.fields.name') }}"
                 class="border border-gray-300 p-2 w-full rounded-lg"
                 required
             >
 
             <input 
                 name="amount" 
-                placeholder="Сумма"
+                placeholder="{{ __('deals.fields.amount') }}"
                 class="border border-gray-300 p-2 w-full rounded-lg"
             >
 
             <textarea 
                 name="notes"
-                placeholder="Заметки..."
+                placeholder="{{ __('app.notes_placeholder') }}"
                 class="border border-gray-300 p-2 w-full rounded-lg"
             ></textarea>
 
             <button class="btn btn-blue">
-                Добавить
+                {{ __('deals.actions.add') }}
             </button>
         </form>
     </div>

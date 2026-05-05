@@ -4,7 +4,7 @@
 
 <div class="max-w-xl mx-auto p-6">
 
-    <h1 class="text-2xl text-white font-bold mb-6">Редактировать клиента</h1>
+    <h1 class="text-2xl text-white font-bold mb-6">{{ __('contacts.edit_client') }}</h1>
 
     <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
 
@@ -14,7 +14,7 @@
 
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Имя
+                    {{ __('contacts.name') }}
                 </label>
                 <input 
                     type="text" 
@@ -26,7 +26,7 @@
 
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Email
+                    {{ __('contacts.email') }}
                 </label>
                 <input 
                     type="email" 
@@ -38,7 +38,7 @@
 
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Телефон
+                    {{ __('contacts.phone') }}
                 </label>
                 <input 
                     type="text" 
@@ -52,11 +52,11 @@
 
                 <a href="{{ route('contacts.show', $contact->id) }}"
                    class="btn btn-red">
-                    ← Назад
+                    ← {{ __('app.back') }}
                 </a>
 
                 <button class="btn btn-blue">
-                    Обновить
+                    {{ __('app.update') }}
                 </button>
 
             </div>

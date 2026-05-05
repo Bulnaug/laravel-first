@@ -4,18 +4,19 @@
 
 <div class="max-w-4xl mx-auto p-6">
 
-    <h1 class="text-2xl font-bold mb-6 text-white">История действий</h1>
+    <h1 class="text-2xl font-bold mb-6 text-white">{{ __('activity.title') }}</h1>
 
     @forelse($activities as $date => $items)
 
-        <!-- Заголовок даты -->
         <div class="text-gray-400 text-sm mb-2 mt-6">
-            @if(\Carbon\Carbon::parse($date)->isToday())
-                Сегодня
-            @elseif(\Carbon\Carbon::parse($date)->isYesterday())
-                Вчера
+            @php $dateObj = \Carbon\Carbon::parse($date); @endphp
+
+            @if($dateObj->isToday())
+                {{ __('activity.today') }}
+            @elseif($dateObj->isYesterday())
+                {{ __('activity.yesterday') }}
             @else
-                {{ \Carbon\Carbon::parse($date)->format('d.m.Y') }}
+                {{ $dateObj->translatedFormat('d M Y') }}
             @endif
         </div>
 
@@ -34,7 +35,18 @@
                             <span class="text-yellow-500">📝</span>
                         @endif
 
-                        <span>{{ $activity->description }}</span>
+                        <span>
+                            {{ str_replace(
+                                ['new', 'in_progress', 'won', 'lost'],
+                                [
+                                    __('deals.statuses.new'),
+                                    __('deals.statuses.in_progress'),
+                                    __('deals.statuses.won'),
+                                    __('deals.statuses.lost'),
+                                ],
+                                $activity->description
+                            ) }}
+                        </span>
 
                     </div>
 
@@ -49,7 +61,7 @@
 
     @empty
         <div class="text-gray-500">
-            Нет действий
+            {{ __('activity.empty') }}
         </div>
     @endforelse
 

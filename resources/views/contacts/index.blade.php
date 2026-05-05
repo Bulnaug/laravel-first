@@ -5,11 +5,11 @@
 <div class="max-w-5xl mx-auto p-6">
 
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold text-white">Клиенты</h1>
+        <h1 class="text-2xl font-bold text-white">{{ __('contacts.title') }}</h1>
 
         <a href="{{ route('contacts.create') }}"
           class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition shadow-sm">
-            + Добавить
+            + {{ __('contacts.add') }}
         </a>
     </div>
 
@@ -18,32 +18,32 @@
             <input type="text"
                    name="search"
                    value="{{ request('search') }}"
-                   placeholder="Поиск по имени или email..."
+                   placeholder="{{ __('contacts.search_placeholder') }}"
                    class="flex-1 border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
             
             <select name="has_deals"
                     class="border border-gray-300 rounded-lg p-2"
                     onchange="this.form.submit()">
 
-                <option value="">Все</option>
+                <option value="">{{ __('app.all') }}</option>
 
                 <option value="yes" {{ request('has_deals') === 'yes' ? 'selected' : '' }}>
-                    Есть сделки
+                    {{ __('contacts.has_deals') }}
                 </option>
 
                 <option value="no" {{ request('has_deals') === 'no' ? 'selected' : '' }}>
-                    Без сделок
+                    {{ __('contacts.no_deals') }}
                 </option>
 
             </select>
 
             <button class="btn btn-gray">
-                Найти
+                {{ __('app.search') }}
             </button>
             @if(request('search') || request('has_deals'))
                 <a href="{{ route('contacts.index') }}"
                 class="btn btn-red">
-                    Сброс
+                    {{ __('app.reset') }}
                 </a>
             @endif
         </form>
@@ -55,7 +55,7 @@
 
             <div class="p-10 text-center text-gray-400">
                 <div class="text-3xl mb-2">👤</div>
-                <div class="text-sm">Нет клиентов</div>
+                <div class="text-sm">{{ __('contacts.empty') }}</div>
             </div>
 
         @else
@@ -63,9 +63,9 @@
             <table class="w-full text-sm">
                 <thead class="bg-gray-50 text-gray-600">
                     <tr>
-                        <th class="p-3 text-left font-medium">Имя</th>
-                        <th class="p-3 text-left font-medium">Email</th>
-                        <th class="p-3 text-right font-medium">Действия</th>
+                        <th class="p-3 text-left font-medium">{{ __('contacts.name') }}</th>
+                        <th class="p-3 text-left font-medium">{{ __('contacts.email') }}</th>
+                        <th class="p-3 text-right font-medium">{{ __('app.actions') }}</th>
                     </tr>
                 </thead>
 
@@ -98,7 +98,7 @@
                                     @method('DELETE')
 
                                     <button class="btn btn-red"
-                                            onclick="return confirm('Удалить?')">
+                                            onclick="return confirm('{{ __('app.delete_confirm') }}')">
                                         🗑
                                     </button>
                                 </form>
