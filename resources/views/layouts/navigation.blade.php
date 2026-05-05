@@ -16,13 +16,8 @@
                         Dashboard
                     </x-nav-link>
                     <x-nav-link href="/contacts" :active="request()->is('contacts*')">
-                        Контакты
+                        Клиенты
                     </x-nav-link>
-
-                    <a href="/contacts/create"
-                    class="inline-flex items-center px-3 py-2 bg-blue-500 text-white rounded-md text-sm font-medium hover:bg-blue-400 transition">
-                        + Клиент
-                    </a>
                     <x-nav-link href="/deals/board" :active="request()->is('deals/board')">
                         Сделки
                     </x-nav-link>

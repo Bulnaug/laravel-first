@@ -32,5 +32,8 @@
                 @yield('content')
             </main>
         </div>
+        <div id="toast-container"
+            class="fixed bottom-5 left-1/2 -translate-x-1/2 space-y-2 z-50 flex flex-col items-center">
+        </div>
     </body>
 </html>

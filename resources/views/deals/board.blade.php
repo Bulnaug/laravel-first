@@ -10,7 +10,8 @@
 
         @foreach(\App\Models\Deal::STATUSES as $status)
 
-            <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+            <div class="kanban-column bg-gray-50 border border-gray-200 rounded-xl p-4 transition"
+                data-status="{{ $status }}">
 
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-sm font-semibold text-gray-600 uppercase">
@@ -27,7 +28,10 @@
                     @foreach($grouped[$status] ?? [] as $deal)
 
                         <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm 
-                                    hover:shadow-md hover:-translate-y-0.5 transition">
+                                    hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.01]
+                                    transition duration-200 ease-in-out cursor-move"
+                        draggable="true"
+                        data-id="{{ $deal->id }}">
 
                             <div class="font-semibold text-gray-900">
                                 {{ $deal->title }}
@@ -65,7 +69,7 @@
                     @endforeach
 
                     @if(empty($grouped[$status]))
-                        <div class="text-sm text-gray-400 text-center py-4">
+                        <div class="empty-text text-sm text-gray-400 text-center py-4">
                             Нет сделок
                         </div>
                     @endif
