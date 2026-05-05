@@ -2,23 +2,68 @@
 
 @section('content')
 
-<h1 class="text-xl font-bold mb-4">Добавить клиента</h1>
+<div class="max-w-xl mx-auto p-6">
 
-<form method="POST" action="/contacts" class="space-y-4">
-    @csrf
+    <h1 class="text-2xl text-white font-bold mb-6">Добавить клиента</h1>
 
-    <input type="text" name="name" placeholder="Имя"
-           class="w-full border p-2 rounded">
+    <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
 
-    <input type="email" name="email" placeholder="Email"
-           class="w-full border p-2 rounded">
+        <form method="POST" action="{{ route('contacts.store') }}" class="space-y-5">
+            @csrf
 
-    <input type="text" name="phone" placeholder="Телефон"
-           class="w-full border p-2 rounded">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Имя
+                </label>
+                <input 
+                    type="text" 
+                    name="name" 
+                    placeholder="Введите имя"
+                    class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                >
+            </div>
 
-    <button class="bg-blue-500 text-white px-4 py-2 rounded">
-        Сохранить
-    </button>
-</form>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Email
+                </label>
+                <input 
+                    type="email" 
+                    name="email" 
+                    placeholder="example@mail.com"
+                    class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                >
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Телефон
+                </label>
+                <input 
+                    type="text" 
+                    name="phone" 
+                    placeholder="+49..."
+                    class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                >
+            </div>
+
+            <div class="flex justify-between items-center pt-4">
+
+                <a href="{{ route('contacts.index') }}"
+                   class="text-sm text-gray-500 hover:underline">
+                    ← Назад
+                </a>
+
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition">
+                    Сохранить
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
 
 @endsection

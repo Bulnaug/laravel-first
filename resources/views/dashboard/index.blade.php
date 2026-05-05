@@ -3,9 +3,8 @@
 @section('content')
     <div class="p-6">
 
-        <h1 class="text-2xl font-bold mb-6">Dashboard</h1>
+        <h1 class="text-2xl text-white font-bold mb-6">Dashboard</h1>
 
-        <!-- Статистика -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
 
             <div class="bg-white p-4 rounded shadow">
@@ -34,14 +33,13 @@
 
         </div>
 
-        <!-- Последние сделки -->
         <div class="bg-white p-4 rounded shadow mb-6">
             <h2 class="text-lg font-semibold mb-4">Latest Deals</h2>
 
             @foreach($latestDeals as $deal)
                 <div class="border-t py-2 flex justify-between hover:bg-gray-50 transition">
                     <div>
-                        <a href="{{ route('contacts.show', $deal->contact_id) }}" 
+                        <a href="{{ route('contacts.show', $deal->contact_id) }}?deal={{ $deal->id }}"
                         class="font-semibold text-blue-600 hover:underline">
                             {{ $deal->title }}
                         </a>
@@ -60,7 +58,6 @@
             @endforeach
         </div>
 
-        <!-- Последние клиенты -->
         <div class="bg-white p-4 rounded shadow">
             <h2 class="text-lg font-semibold mb-4">Latest Contacts</h2>
 
