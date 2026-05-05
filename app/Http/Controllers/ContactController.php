@@ -69,7 +69,11 @@ class ContactController extends Controller
         $contact = Contact::where('id', $id)
             ->where('user_id', auth()->id())
             ->firstOrFail();
-        $contact->update($request->all());
+        $contact->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+        ]);
 
         return redirect('/contacts');
     }
@@ -84,7 +88,9 @@ class ContactController extends Controller
     }
     public function show($id)
     {
-        $contact = Contact::findOrFail($id);
+        $contact = Contact::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
 
         return view('contacts.show', compact('contact'));
     }

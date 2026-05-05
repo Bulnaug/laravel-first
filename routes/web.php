@@ -4,10 +4,15 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DealController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AnalyticsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/analytics', [AnalyticsController::class, 'index'])->name('analytics');
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])

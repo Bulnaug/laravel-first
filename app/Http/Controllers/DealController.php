@@ -31,12 +31,17 @@ class DealController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function board()
+   public function board()
     {
         $search = request('search');
         $contactId = request('contact_id');
+        $min = request('min_amount');
+        $max = request('max_amount');
 
-        $query = Deal::with('contact');
+        $query = Deal::with('contact')
+            ->whereHas('contact', function ($q) {
+                $q->where('user_id', auth()->id());
+            });
 
         // 🔍 поиск
         if ($search) {
@@ -48,14 +53,20 @@ class DealController extends Controller
             $query->where('contact_id', $contactId);
         }
 
+        // 💰 фильтр по сумме
+        if ($min !== null && $min !== '') {
+            $query->where('amount', '>=', $min);
+        }
+
+        if ($max !== null && $max !== '') {
+            $query->where('amount', '<=', $max);
+        }
+
         $deals = $query->get();
 
         $grouped = $deals->groupBy('status');
 
-        $totalDeals = $deals->count();
-
-        // для select
-        $contacts = Contact::all();
+        $contacts = Contact::where('user_id', auth()->id())->get();
 
         return view('deals.board', compact('grouped', 'contacts'));
     }

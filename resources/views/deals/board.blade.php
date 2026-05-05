@@ -7,16 +7,14 @@
     <h1 class="text-2xl font-bold mb-6 text-white">Канбан сделок</h1>
     
     <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-4 mb-6">
-        <form method="GET" action="{{ route('deals.board') }}" class="flex gap-2 items-center">
+        <form method="GET" action="{{ route('deals.board') }}" class="flex gap-2 items-center flex-wrap">
 
-            <!-- поиск -->
             <input type="text"
                 name="search"
                 value="{{ request('search') }}"
                 placeholder="Поиск сделки..."
                 class="flex-1 border border-gray-300 rounded-lg p-2">
 
-            <!-- фильтр по клиенту -->
             <select name="contact_id"
                     class="border border-gray-300 rounded-lg p-2"
                     onchange="this.form.submit()">
@@ -32,11 +30,24 @@
 
             </select>
 
+            <!-- 💰 фильтр суммы -->
+            <input type="number"
+                name="min_amount"
+                value="{{ request('min_amount') }}"
+                placeholder="Мин $"
+                class="w-28 border border-gray-300 rounded-lg p-2">
+
+            <input type="number"
+                name="max_amount"
+                value="{{ request('max_amount') }}"
+                placeholder="Макс $"
+                class="w-28 border border-gray-300 rounded-lg p-2">
+
             <button class="bg-gray-800 text-white px-4 py-2 rounded-lg">
                 Найти
             </button>
 
-            @if(request('search') || request('contact_id'))
+            @if(request()->hasAny(['search','contact_id','min_amount','max_amount']))
                 <a href="{{ route('deals.board') }}"
                 class="bg-red-800 text-white px-4 py-2 rounded-lg">
                     Сброс

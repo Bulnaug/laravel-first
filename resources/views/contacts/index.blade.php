@@ -110,10 +110,10 @@
         @endif
 
     </div>
-
-</div>
 <div class="mt-4">
     {{ $contacts->links() }}
 </div>
+</div>
+
 
 @endsection

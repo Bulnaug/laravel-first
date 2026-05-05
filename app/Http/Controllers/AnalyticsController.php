@@ -2,22 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contact;
 use App\Models\Deal;
+use App\Models\Contact;
 
-class DashboardController extends Controller
+class AnalyticsController extends Controller
 {
     public function index()
     {
         $userId = auth()->id();
 
-        $contactsCount = Contact::where('user_id', $userId)->count();
-
         $dealsQuery = Deal::whereHas('contact', function ($q) use ($userId) {
             $q->where('user_id', $userId);
         });
 
-        $dealsCount = $dealsQuery->count();
+        $totalDeals = $dealsQuery->count();
+        $totalAmount = (clone $dealsQuery)->sum('amount');
 
         $wonAmount = (clone $dealsQuery)
             ->where('status', 'won')
@@ -27,26 +26,24 @@ class DashboardController extends Controller
             ->whereIn('status', ['new', 'in_progress'])
             ->sum('amount');
 
-        $latestContacts = Contact::where('user_id', $userId)
-            ->latest()
+        $dealsByStatus = (clone $dealsQuery)
+            ->selectRaw('status, count(*) as count, sum(amount) as total')
+            ->groupBy('status')
+            ->get();
+
+        $topContacts = Contact::where('user_id', $userId)
+            ->withSum('deals', 'amount')
+            ->orderByDesc('deals_sum_amount')
             ->take(5)
             ->get();
 
-        $latestDeals = Deal::with('contact')
-            ->whereHas('contact', function ($q) use ($userId) {
-                $q->where('user_id', $userId);
-            })
-            ->latest()
-            ->take(5)
-            ->get();
-
-        return view('dashboard.index', compact(
-            'contactsCount',
-            'dealsCount',
+        return view('analytics.index', compact(
+            'totalDeals',
+            'totalAmount',
             'wonAmount',
             'pipelineAmount',
-            'latestContacts',
-            'latestDeals'
+            'dealsByStatus',
+            'topContacts'
         ));
     }
 }

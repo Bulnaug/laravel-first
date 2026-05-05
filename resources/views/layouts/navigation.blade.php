@@ -21,6 +21,9 @@
                     <x-nav-link href="/deals/board" :active="request()->is('deals/board')">
                         Сделки
                     </x-nav-link>
+                    <x-nav-link href="/analytics" :active="request()->is('analytics')">
+                        Аналитика
+                    </x-nav-link>
                 </div>
             </div>
 
