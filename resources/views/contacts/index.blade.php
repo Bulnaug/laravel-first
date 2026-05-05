@@ -8,7 +8,7 @@
         <h1 class="text-2xl font-bold text-white">Клиенты</h1>
 
         <a href="{{ route('contacts.create') }}"
-           class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition">
+          class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition shadow-sm">
             + Добавить
         </a>
     </div>
@@ -37,12 +37,12 @@
 
             </select>
 
-            <button class="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition">
+            <button class="btn btn-gray">
                 Найти
             </button>
             @if(request('search') || request('has_deals'))
                 <a href="{{ route('contacts.index') }}"
-                class="bg-red-800 text-white px-4 py-2 rounded-lg hover:bg-red-900 transition">
+                class="btn btn-red">
                     Сброс
                 </a>
             @endif
@@ -52,9 +52,12 @@
     <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
 
         @if($contacts->isEmpty())
-            <div class="p-6 text-center text-gray-500">
-                Ничего не найдено
+
+            <div class="p-10 text-center text-gray-400">
+                <div class="text-3xl mb-2">👤</div>
+                <div class="text-sm">Нет клиентов</div>
             </div>
+
         @else
 
             <table class="w-full text-sm">
@@ -68,11 +71,11 @@
 
                 <tbody>
                     @foreach($contacts as $contact)
-                        <tr class="border-t hover:bg-gray-50 transition">
+                        <tr class="border-t hover:bg-gray-50 transition duration-150">
 
                             <td class="p-3">
                                 <a href="{{ route('contacts.show', $contact->id) }}"
-                                   class="text-gray-900 font-medium hover:underline">
+                                class="text-gray-900 font-medium hover:underline">
                                     {{ $contact->name }}
                                 </a>
                             </td>
@@ -84,17 +87,17 @@
                             <td class="p-3 text-right space-x-2">
 
                                 <a href="{{ route('contacts.edit', $contact->id) }}"
-                                   class="inline-block bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-lg text-sm">
+                                class="inline-block bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-lg text-sm">
                                     ✏️
                                 </a>
 
                                 <form method="POST"
-                                      action="{{ route('contacts.destroy', $contact->id) }}"
-                                      class="inline">
+                                    action="{{ route('contacts.destroy', $contact->id) }}"
+                                    class="inline">
                                     @csrf
                                     @method('DELETE')
 
-                                    <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-sm"
+                                    <button class="btn btn-red"
                                             onclick="return confirm('Удалить?')">
                                         🗑
                                     </button>
@@ -110,7 +113,7 @@
         @endif
 
     </div>
-<div class="mt-4">
+<div class="mt-6 flex justify-center">
     {{ $contacts->links() }}
 </div>
 </div>

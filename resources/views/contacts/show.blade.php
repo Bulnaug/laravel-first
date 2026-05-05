@@ -30,7 +30,7 @@
             </a>
 
             <a href="{{ route('contacts.index') }}"
-               class="bg-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300 transition text-sm">
+               class="btn btn-red">
                ← Назад
             </a>
         </div>
@@ -100,14 +100,14 @@
                     <div class="flex justify-end mt-1">
 
                         <button type="submit"
-                                class="rounded-lg mr-3 p-2 text-xs text-white bg-blue-500">
+                                class="btn btn-blue mr-2">
                             Сохранить
                         </button>
 
                         <button type="submit"
                                 name="notes"
                                 value=""
-                                class="rounded-lg text-xs p-2 text-white bg-red-800 hover:bg-red-900">
+                                class="btn btn-red">
                             Очистить
                         </button>
 
@@ -144,7 +144,7 @@
                 class="border border-gray-300 p-2 w-full rounded-lg"
             ></textarea>
 
-            <button class="bg-blue-500 text-white px-4 py-2 rounded-lg">
+            <button class="btn btn-blue">
                 Добавить
             </button>
         </form>

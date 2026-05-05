@@ -51,11 +51,11 @@
             <div class="flex justify-between items-center pt-4">
 
                 <a href="{{ route('contacts.show', $contact->id) }}"
-                   class="text-sm text-gray-500 hover:underline">
+                   class="btn btn-red">
                     ← Назад
                 </a>
 
-                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition">
+                <button class="btn btn-blue">
                     Обновить
                 </button>
 

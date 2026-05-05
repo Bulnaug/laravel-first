@@ -36,5 +36,10 @@
             class="fixed bottom-5 left-1/2 -translate-x-1/2 space-y-2 z-50 flex flex-col items-center">
         </div>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        @if(session('success'))
+            <div class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded-lg shadow">
+                {{ session('success') }}
+            </div>
+        @endif
     </body>
 </html>

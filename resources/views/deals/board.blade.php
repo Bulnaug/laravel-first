@@ -43,13 +43,13 @@
                 placeholder="Макс $"
                 class="w-28 border border-gray-300 rounded-lg p-2">
 
-            <button class="bg-gray-800 text-white px-4 py-2 rounded-lg">
+            <button class="btn btn-gray">
                 Найти
             </button>
 
             @if(request()->hasAny(['search','contact_id','min_amount','max_amount']))
                 <a href="{{ route('deals.board') }}"
-                class="bg-red-800 text-white px-4 py-2 rounded-lg">
+                class="btn btn-red">
                     Сброс
                 </a>
             @endif
@@ -120,7 +120,7 @@
                     @endforeach
 
                     @if(empty($grouped[$status]))
-                        <div class="empty-text text-sm text-gray-400 text-center py-4">
+                        <div class="empty-text text-sm text-gray-400 text-center py-6">
                             Нет сделок
                         </div>
                     @endif

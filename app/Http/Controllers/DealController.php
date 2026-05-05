@@ -23,7 +23,7 @@ class DealController extends Controller
             'description' => "Создана сделка: {$deal->title}",
         ]);
 
-        return back();
+        return back()->with('success', 'Сохранено');
     }
 
     public function updateStatus(Request $request, Deal $deal)
@@ -46,7 +46,7 @@ class DealController extends Controller
             'description' => "Сделка '{$deal->title}': {$oldStatus} → {$request->status}",
         ]);
 
-        return back();
+        return back()->with('success', 'Сохранено');
     }
 
    public function board()
@@ -100,7 +100,7 @@ class DealController extends Controller
             'status' => $request->status
         ]);
 
-        return back();
+        return back()->with('success', 'Сохранено');
     }
 
     public function updateNotes(Request $request, Deal $deal)
@@ -119,6 +119,6 @@ class DealController extends Controller
             'description' => "Обновлена заметка у сделки: {$deal->title}",
         ]);
 
-        return back();
+        return back()->with('success', 'Сохранено');
     }
 }
