@@ -46,13 +46,7 @@ class DealController extends Controller
             'description' => "Сделка '{$deal->title}': {$oldStatus} → {$request->status}",
         ]);
 
-        Activity::create([
-            'user_id' => auth()->id(),
-            'type' => 'status_changed',
-            'description' => "Сделка '{$deal->title}': {$oldStatus} → {$request->status}",
-        ]);
-
-        return response()->json(['success' => true]);
+        return back();
     }
 
    public function board()
@@ -106,7 +100,7 @@ class DealController extends Controller
             'status' => $request->status
         ]);
 
-        return response()->json(['success' => true]);
+        return back();
     }
 
     public function updateNotes(Request $request, Deal $deal)
