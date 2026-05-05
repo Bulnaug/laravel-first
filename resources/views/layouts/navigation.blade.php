@@ -83,11 +83,16 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="/contacts" :active="request()->is('contacts*')">
-                Контакты
+                {{ __('contacts.title') }}
             </x-responsive-nav-link>
-
-            <x-responsive-nav-link href="/contacts/create">
-                + Клиент
+            <x-responsive-nav-link href="/deals/board" :active="request()->is('deals/board')">
+                {{ __('deals.title') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="/analytics" :active="request()->is('analytics')">
+                {{ __('analytics.title') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="/history" :active="request()->is('history')">
+                {{ __('activity.title_navigation') }}
             </x-responsive-nav-link>
         </div>
 
