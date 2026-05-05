@@ -13,6 +13,7 @@ class DealController extends Controller
         $contact->deals()->create([
             'title' => $request->title,
             'amount' => $request->amount,
+            'notes' => $request->notes,
         ]);
 
         return back();
@@ -83,5 +84,18 @@ class DealController extends Controller
         ]);
 
         return response()->json(['success' => true]);
+    }
+
+    public function updateNotes(Request $request, Deal $deal)
+    {
+        if ($deal->contact->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $deal->update([
+            'notes' => $request->notes
+        ]);
+
+        return back();
     }
 }

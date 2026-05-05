@@ -78,6 +78,41 @@
                     </form>
 
                 </div>
+
+                @if($deal->notes)
+                    <div class="mt-3 text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
+                        {{ $deal->notes }}
+                    </div>
+                @else
+                    <div class="mt-3 text-xs text-gray-400">
+                        Нет заметок
+                    </div>
+                @endif
+
+                <form method="POST" action="{{ route('deals.notes', $deal->id) }}" class="mt-3">
+                    @csrf
+
+                    <textarea name="notes"
+                            placeholder="Заметки..."
+                            class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                            rows="2">{{ $deal->notes }}</textarea>
+
+                    <div class="flex justify-end mt-1">
+
+                        <button type="submit"
+                                class="rounded-lg mr-3 p-2 text-xs text-white bg-blue-500">
+                            Сохранить
+                        </button>
+
+                        <button type="submit"
+                                name="notes"
+                                value=""
+                                class="rounded-lg text-xs p-2 text-white bg-red-800 hover:bg-red-900">
+                            Очистить
+                        </button>
+
+                    </div>
+                </form>
             </div>
         @endforeach
     </div>
@@ -86,24 +121,30 @@
         <h3 class="text-lg font-semibold mb-4 text-gray-700">Добавить сделку</h3>
 
         <form method="POST"
-              action="{{ route('deals.store', $contact->id) }}"
-              class="space-y-3">
+            action="{{ route('deals.store', $contact->id) }}"
+            class="space-y-3">
             @csrf
 
             <input 
                 name="title" 
                 placeholder="Название сделки"
-                class="border border-gray-300 p-2 w-full rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                class="border border-gray-300 p-2 w-full rounded-lg"
                 required
             >
 
             <input 
                 name="amount" 
                 placeholder="Сумма"
-                class="border border-gray-300 p-2 w-full rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                class="border border-gray-300 p-2 w-full rounded-lg"
             >
 
-            <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition font-medium">
+            <textarea 
+                name="notes"
+                placeholder="Заметки..."
+                class="border border-gray-300 p-2 w-full rounded-lg"
+            ></textarea>
+
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-lg">
                 Добавить
             </button>
         </form>

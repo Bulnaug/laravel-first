@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/contacts/{contact}/deals', [DealController::class, 'store'])->name('deals.store');
     Route::post('/deals/{deal}/status', [DealController::class, 'updateStatus'])->name('deals.updateStatus');
     Route::get('/deals/board', [DealController::class, 'board'])->name('deals.board');
+    Route::post('/deals/{deal}/notes', [DealController::class, 'updateNotes'])->name('deals.notes');
 });
 
 require __DIR__.'/auth.php';

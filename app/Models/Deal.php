@@ -20,6 +20,7 @@ class Deal extends Model
         'amount',
         'status',
         'contact_id',
+        'notes',
     ];
 
     public function contact()
